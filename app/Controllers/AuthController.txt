@@ -1,0 +1,56 @@
+<?php 
+namespace App\Controllers;
+
+use CodeIgniter\RESTful\ResourceController;
+use CodeIgniter\API\ResponseTrait;
+
+class AuthController extends ResourceController
+{
+    use ResponseTrait;
+
+    // Login menggunakan token
+    public function login()
+{
+    $email = $this->request->getPost('email');
+    $password = $this->request->getPost('password');
+
+    $auth = service('auth');
+
+    if ($auth->login($email, $password)) {
+        return $this->respond([
+            'status' => 'success',
+            'message' => 'Login successful',
+        ]);
+    } else {
+        return $this->failUnauthorized('Invalid login credentials');
+    }
+}
+
+
+    // Logout
+    public function logout()
+    {
+        service('auth')->logout();
+        return $this->respond([
+            'status' => 'success',
+            'message' => 'Logout berhasil'
+        ]);
+    }
+
+    // Registrasi
+    public function register()
+    {
+        $data = $this->request->getJSON();
+        $auth = service('auth');
+
+        // Validasi dan simpan user baru
+        if ($auth->register($data->email, $data->password)) {
+            return $this->respond([
+                'status' => 'success',
+                'message' => 'Registrasi berhasil',
+            ]);
+        }
+
+        return $this->failValidationError('Gagal melakukan registrasi');
+    }
+}

@@ -1,0 +1,119 @@
+alur api codeigniter shield
+
+
+1. register
+pertama registrasi akun
+
+post http://localhost:8080/api/register
+
+body: 
+contoh {
+    "email":"alur@yahoo.com",
+    "username":"alur",
+    "password":"unisnu2024"
+}
+hasil:
+201 created 
+{
+    "status": true,
+    "message": "user saved succesfully",
+    "data": []
+}
+
+2.login
+ login akun yang sudah dibuat
+
+post http://localhost:8080/api/login
+
+contoh
+body:
+{
+    "email": "alur@yahoo.com",
+    "password": "unisnu2024"
+}
+
+hasil:
+201 created
+{
+    "status": true,
+    "message": "user logged in succesfully",
+    "data": {
+        "token": "4ec70a325435a1e0dd62f0736350c5361c1144609ee07542316227ebe87f4348"
+    }
+}
+
+3. Menampilkan Profil
+kemudian jika ingin melihat profil
+
+get http://localhost:8080/api/profile
+
+headers:
+Authorization : Bearer token 
+
+
+contoh
+Authorization : Bearer 4ec70a325435a1e0dd62f0736350c5361c1144609ee07542316227ebe87f4348 
+
+hasil:
+201 created
+{
+    "status": true,
+    "message": "profile Information of logged in user",
+    "data": {
+        "user": {
+            "id": 9,
+            "username": "alur",
+            "status": null,
+            "status_message": null,
+            "active": false,
+            "last_active": null,
+            "created_at": {
+                "date": "2024-12-07 16:48:04.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "updated_at": {
+                "date": "2024-12-07 16:48:04.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "deleted_at": null
+        }
+    }
+}
+
+
+4.Logout
+kemudian jika ingin logout 
+
+get http://localhost:8080/api/logout
+headers:
+Authorization : Bearer token 
+
+contoh
+Authorization : Bearer 4ec70a325435a1e0dd62f0736350c5361c1144609ee07542316227ebe87f4348 
+
+hasil : 
+201 created {
+    "status": true,
+    "message": "User logged out successfully",
+    "data": []
+}
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
